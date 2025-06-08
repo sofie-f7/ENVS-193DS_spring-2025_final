@@ -23,6 +23,7 @@ In part 1, they used a Pearson's r test. In part 2, they used an analysis of var
 
 ## b. 
 
-
+One additional piece of information that should be included is the significance level that was used to compare the p-value. This would add useful additional context because it provides more transparency to the test that was done and tells how strict the test was.
+Another test that should be included is Tukey's HSD. This would be useful because it would explain which sources are actually statistically different in mean nitrogen load from each other when you compare them. The ANOVA test result says that at least one group is significantly different, but not which one(s). 
 
 ## c. 
