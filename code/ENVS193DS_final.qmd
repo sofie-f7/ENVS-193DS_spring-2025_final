@@ -1,0 +1,28 @@
+---
+title: "ENVS 193DS Final"
+author: "Sofie Flom"
+date: "8 June 2025"
+format:
+  html:
+    toc: true # use this to display a table of contents
+execute:
+  message: false # use this to make sure messages don't show up
+  warning: false # use this to make sure warnings don't show up
+---
+[Repo link](https://github.com/sofie-f7/ENVS-193DS_spring-2025_final)
+
+```{r packages-and-data, message=FALSE}
+
+```
+
+# Problem 1. 
+
+## a. 
+
+In part 1, they used a Pearson's r test. In part 2, they used an analysis of variance (one-way ANOVA) test. 
+
+## b. 
+
+
+
+## c. 
