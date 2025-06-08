@@ -12,6 +12,11 @@ execute:
 [Repo link](https://github.com/sofie-f7/ENVS-193DS_spring-2025_final)
 
 ```{r packages-and-data, message=FALSE}
+library(tidyverse) # general use
+library(here) # file organization
+library(janitor) # cleaning data frames
+
+sst <- read_csv(here("data", "SST_update2023.csv")) #read in Santa Barbara SST data in data folder
 
 ```
 
@@ -31,3 +36,11 @@ Another test that should be included is Tukey's HSD. This would be useful becaus
 We rejected the null hypothesis that there is no correlation between distance from headwater (km) and annual total nitrogen load (kg year-1) (Pearson's r = **correlation coefficient**, p = 0.03, $\alpha$ = **significance level**).
 
 We rejected the null hypothesis that there is no difference in average nitrogen load (kg year-1) between sources (n = sample sizes) (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F(**among groups df, within groups df**) = **F-statistic**, p = 0.02, $\alpha$ = **significance level**). We found a ___ effect ($\eta^2$ = **effect size**) of nitrogen source on nitrogen load. On average, **source type** tended to have smaller/larger nitrogen loads than **source type** (**Tukey's HSD**).
+
+# Problem 2.
+
+## a. 
+
+
+
+## b. 
