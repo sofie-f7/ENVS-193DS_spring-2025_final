@@ -44,13 +44,15 @@ We rejected the null hypothesis that there is no difference in average nitrogen 
 ```{r cleaning-and-summarizing}
 sst_clean <- sst |> #create new sst_clean dataframe from sst dataframe
   select(-site, -latitude, -longitude) |> #remove site, latitude, and longitude columns
+  filter(date > as_date("2017-12-31")) |> #only include dates after 2017
   mutate(month = factor(month(date, label = TRUE, abbr = TRUE), #extract month from the date column and set as factor
                       levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")), #set month as ordered factor with these levels
-         year = as_factor(year(date))) |> #set year as factor and extract year from the date column
+         year = factor(as.character(year(date)), #set year as factor and extract year from the date column
+                       levels = c("2018", "2019", "2020", "2021", "2022", "2023"))) |> 
   group_by(year, month) |> #group by months
   summarize(mean_monthly_sst = mean(temp)) |> #calculate the monthly mean sst 
-  ungroup() #ungroup by mean
+  ungroup() #ungroup 
 
 ```
 
@@ -63,3 +65,29 @@ str(sst_clean) #display structure of sst_clean
 ```
 
 ## b. 
+
+```{r visualize-data}
+ggplot(data = sst_clean, #use the sst_clean dataframe
+       aes(x = month, #make the x-axis the month
+           y = mean_monthly_sst), #make the y-axis the mean monthly sst
+           color = year) + #color by the year
+  geom_point() + #add points
+  geom_line(aes(group = year, color = year)) + #add a line for each year and color by year
+  labs(x = "Month", #rename the x-axis
+       y = "Mean monthly sea surface temperature (°C)", #rename the y-axis
+       color = "Year") + #name the legend
+  theme(panel.background = element_blank(), #make the panel background blank
+        legend.position = c(0.05, 0.95), #position the legend inside the plot
+        panel.grid = element_blank(), #remove the gridlines
+        legend.justification = c("left", "top"), #align the legend to top left
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5)
+) + #add a panel border
+  scale_color_manual(values = c("2018" = "#deebf7", #change color of 2018 line
+                                "2019" = "#c6dbef", #change color of 2019 line
+                                "2020" = "#9ecae1", #change color of 2020 line
+                                "2021" = "#6baed6", #change color of 2021 line
+                                "2022" = "#3182bd", #change color of 2022 line
+                                "2023" = "#08519c")) #change color of 2023 line
+
+```
+
