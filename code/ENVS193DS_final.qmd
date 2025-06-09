@@ -41,6 +41,25 @@ We rejected the null hypothesis that there is no difference in average nitrogen 
 
 ## a. 
 
+```{r cleaning-and-summarizing}
+sst_clean <- sst |> #create new sst_clean dataframe from sst dataframe
+  select(-site, -latitude, -longitude) |> #remove site, latitude, and longitude columns
+  mutate(month = factor(month(date, label = TRUE, abbr = TRUE), #extract month from the date column and set as factor
+                      levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")), #set month as ordered factor with these levels
+         year = as_factor(year(date))) |> #set year as factor and extract year from the date column
+  group_by(year, month) |> #group by months
+  summarize(mean_monthly_sst = mean(temp)) |> #calculate the monthly mean sst 
+  ungroup() #ungroup by mean
 
+```
+
+```{r}
+slice_sample(sst_clean, n = 5) #display 5 rows from sst_clean
+```
+
+```{r}
+str(sst_clean) #display structure of sst_clean
+```
 
 ## b. 
