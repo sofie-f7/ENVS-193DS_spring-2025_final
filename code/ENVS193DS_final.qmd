@@ -110,7 +110,7 @@ Swift Parrots are very selective about where they nest, whereas Tree Martins and
 ## d. 
 
 | Model number | Season | Distance to forest edge | Model description          |  
-|:------------:|:------:|:-----------------------:|:---------------------------|  
+|:------------:|:------:|:-----------------------:|:--------------------------:|  
 | 0            |        |                         | no predictors (null model) |
 | 1            |   X    |        X                | all predictors (full model)| 
 | 2            |   X    |                         | season                     |   
@@ -119,7 +119,39 @@ Swift Parrots are very selective about where they nest, whereas Tree Martins and
 ## e. 
 
 ```{r}
+bird_data_clean <- bird_data |> #create new bird_data_clean dataframe using bird_data dataframe
+  clean_names() #clean the column names
 
+# model 0: null model
+model0 <- lm(
+  e ~ 1, # formula
+  data = bird_data_clean # data frame
+)
+
+# model 1: all predictors
+model1 <- lm(
+  e ~ season + edge_distance,
+  data = bird_data_clean
+)
+
+# model 2: season
+model2 <- lm(
+  e ~ season,
+  data = bird_data_clean
+)
+
+# model 3: edge distance
+model3 <- lm(
+  e ~ edge_distance,
+  data = bird_data_clean
+)
 ```
 
 ## f. 
+
+```{r model-diagnostics}
+
+```
+
+
+## g. 
