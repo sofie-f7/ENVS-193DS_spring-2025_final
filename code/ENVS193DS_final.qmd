@@ -18,6 +18,8 @@ library(janitor) # cleaning data frames
 
 sst <- read_csv(here("data", "SST_update2023.csv")) #read in Santa Barbara SST data in data folder
 
+bird_data <- read_csv(here("data", "occdist.csv")) #read in data for Problem 3 from data folder
+
 ```
 
 # Problem 1. 
@@ -50,7 +52,7 @@ sst_clean <- sst |> #create new sst_clean dataframe from sst dataframe
                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")), #set month as ordered factor with these levels
          year = factor(as.character(year(date)), #set year as factor and extract year from the date column
                        levels = c("2018", "2019", "2020", "2021", "2022", "2023"))) |> 
-  group_by(year, month) |> #group by months
+  group_by(year, month) |> #group by months and year
   summarize(mean_monthly_sst = mean(temp)) |> #calculate the monthly mean sst 
   ungroup() #ungroup 
 
@@ -71,7 +73,7 @@ ggplot(data = sst_clean, #use the sst_clean dataframe
        aes(x = month, #make the x-axis the month
            y = mean_monthly_sst), #make the y-axis the mean monthly sst
            color = year) + #color by the year
-  geom_point() + #add points
+  geom_point(aes(color = year)) + #add points and color by year
   geom_line(aes(group = year, color = year)) + #add a line for each year and color by year
   labs(x = "Month", #rename the x-axis
        y = "Mean monthly sea surface temperature (°C)", #rename the y-axis
@@ -91,3 +93,14 @@ ggplot(data = sst_clean, #use the sst_clean dataframe
 
 ```
 
+# Problem 3. 
+
+## a. 
+
+In this data set, 0s mean there is no nest occupancy and 1s mean there is nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a bird or not.
+
+## b. 
+
+Swift Parrots are very selective about where they nest, whereas Tree Martins and Common Starlings are much less selective. 
+
+## c. 
