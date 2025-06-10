@@ -104,3 +104,7 @@ In this data set, 0s mean there is no nest occupancy and 1s mean there is nest o
 Swift Parrots are very selective about where they nest, whereas Tree Martins and Common Starlings are much less selective. 
 
 ## c. 
+
+2016 and 2019 are the two years that the authors refer to as "seasons." In 2016, they deployed nest boxes at a Swift Parrot breeding site where a mast tree flowering event triggered nesting, and they did the same in 2019 when same mast tree flowering event occurred. The 2016 season is referred to as "newly deployed" and the 2019 season is referred to as "established."
+
+## d. 
