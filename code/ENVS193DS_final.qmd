@@ -108,3 +108,18 @@ Swift Parrots are very selective about where they nest, whereas Tree Martins and
 2016 and 2019 are the two years that the authors refer to as "seasons." In 2016, they deployed nest boxes at a Swift Parrot breeding site where a mast tree flowering event triggered nesting, and they did the same in 2019 when same mast tree flowering event occurred. The 2016 season is referred to as "newly deployed" and the 2019 season is referred to as "established."
 
 ## d. 
+
+| Model number | Season | Distance to forest edge | Model description          |  
+|:------------:|:------:|:-----------------------:|:---------------------------|  
+| 0            |        |                         | no predictors (null model) |
+| 1            |   X    |        X                | all predictors (full model)| 
+| 2            |   X    |                         | season                     |   
+| 3            |        |        X                | distance to forest edge    |    
+
+## e. 
+
+```{r}
+
+```
+
+## f. 
