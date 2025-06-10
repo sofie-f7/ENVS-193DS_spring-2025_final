@@ -99,7 +99,7 @@ ggplot(data = sst_clean, #use the sst_clean dataframe
 
 ## a. 
 
-In this data set, 0s mean there is no nest occupancy and 1s mean there is nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a bird or not.
+In this data set, 0s mean there is nest occupancy and 1s mean there is no nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a bird or not.
 
 ## b. 
 
@@ -163,7 +163,7 @@ plot(model3)
 ```{r model-selection}
 AICc( #using Akaike’s Information Criterion (AIC) function
   model0, #check model 0
-  model1, #check model 1
+  model1, #check model 1 - lowest AIC, best model
   model2, #check model 2
   model3) |> #check model 3
    arrange(AICc) #arranging output in descending order of AIC
@@ -177,45 +177,40 @@ The best model that predicts box occupancy as determined by Akaike’s Informati
 ## h. 
 
 ```{r}
-model1_predictions <- ggpredict(
-  model1,
-  terms = c("season", "edge_distance") #predictors
-) |> 
-  rename(season = x,
-         edge_distance = group)
+model1_predictions <- ggpredict(model1, # model object
+  terms = c("edge_distance", "season")) |> # listing predictors edge distance and season
+  rename(
+    edge_distance = x,
+    season = group
+  )
+```
 
-#| fig-width: 12
-#| fig-height: 4
-
-# base layer: ggplot
-ggplot(data = bird_data_clean, # using the bird_data_clean object
-       aes(x = water_treatment,
+```{r}
+ggplot(bird_data_clean,
+       aes(x = edge_distance,
            y = e,
-           color = water_treatment)) +
-  # first layer: jitter showing individual observations
-  geom_jitter(width = 0.1,
-              height = 0,
-              shape = 21,
-              alpha = 0.6) +
-  # second layer: point range showing model predictions
-  # note that this is appropriate because there are only categorical predictors
-  # in the final model
-  geom_pointrange(data = model4_predictions,
-                  aes(y = predicted,
-                      ymin = conf.low,
-                      ymax = conf.high)) +
-  # manually setting colors
-  scale_color_manual(values = c("Well watered" = ww_col,
-                                "Drought stressed" = ds_col)) +
-  # wrapping x-axis labels
-  scale_x_discrete(labels = label_wrap(10)) +
-  # creating different panels for each species
-  facet_wrap(~species_name, nrow = 1) +
-  # labelling x- and y-axis
-  labs(x = "Water treatment",
-       y = "Total mass (g)") +
-  # taking out the legend
-  theme(legend.position = "none")
+           color = season)) +
+  geom_point(size = 3,
+             alpha = 0.4) +
+  geom_ribbon(data = model1_predictions,
+              aes(x = edge_distance,
+                  y = predicted,
+                  ymin = conf.low,
+                  ymax = conf.high,
+                  fill = season),
+              alpha = 0.4) +
+  geom_line(data = model1_predictions,
+            aes(x = edge_distance,
+                y = predicted,
+                color = season)) +
+  scale_color_manual(values = c("2016" = "plum2", "2019" = "lightgreen")) + 
+  scale_fill_manual(values = c("2016" = "plum2", "2019" = "lightgreen")) +
+  labs(
+    x = "Distance from the forest edge (m)",
+    y = "Probability of box occupancy",
+  ) + 
+  theme(panel.grid = element_blank()) #remove the gridlines 
+ 
 ```
 
 ## i. 
