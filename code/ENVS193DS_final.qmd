@@ -15,6 +15,7 @@ execute:
 library(tidyverse) # general use
 library(here) # file organization
 library(janitor) # cleaning data frames
+library(MuMIn) # model selection
 
 sst <- read_csv(here("data", "SST_update2023.csv")) #read in Santa Barbara SST data in data folder
 
@@ -123,35 +124,57 @@ bird_data_clean <- bird_data |> #create new bird_data_clean dataframe using bird
   clean_names() #clean the column names
 
 # model 0: null model
-model0 <- lm(
-  e ~ 1, # formula
-  data = bird_data_clean # data frame
+model0 <- lm( #create model object using linear model function
+  e ~ 1, # formula for null model
+  data = bird_data_clean # using bird_data_clean data frame
 )
 
 # model 1: all predictors
-model1 <- lm(
-  e ~ season + edge_distance,
-  data = bird_data_clean
+model1 <- lm( #create model object using linear model function
+  e ~ season + edge_distance, #e is response and season + edge distance are predictors
+  data = bird_data_clean # using bird_data_clean data frame
 )
 
 # model 2: season
-model2 <- lm(
-  e ~ season,
-  data = bird_data_clean
+model2 <- lm( #create model object using linear model function
+  e ~ season, #e is response and season is predictor
+  data = bird_data_clean # using bird_data_clean data frame
 )
 
 # model 3: edge distance
-model3 <- lm(
-  e ~ edge_distance,
-  data = bird_data_clean
+model3 <- lm( #create model object using linear model function
+  e ~ edge_distance, #e is response and edge distance is predictor
+  data = bird_data_clean # using bird_data_clean data frame
 )
 ```
 
 ## f. 
 
 ```{r model-diagnostics}
-
+par(mfrow = c(2,2))
+plot(model1)
+plot(model2)
+plot(model3)
 ```
 
-
 ## g. 
+
+```{r model-selection}
+AICc( #using Akaike’s Information Criterion (AIC) function
+  model0, #check model 0
+  model1, #check model 1
+  model2, #check model 2
+  model3) |> #check model 3
+   arrange(AICc) #arranging output in descending order of AIC
+```
+```{r model-summary}
+summary(model1)
+```
+
+The best model that predicts box occupancy as determined by Akaike’s Information Criterion (AIC) includes season and edge distance (F(2, 224) = 12.17, p < 0.001, $\alpha$ = 0.05).
+
+## h. 
+
+
+
+## i. 
