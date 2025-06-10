@@ -16,6 +16,7 @@ library(tidyverse) # general use
 library(here) # file organization
 library(janitor) # cleaning data frames
 library(MuMIn) # model selection
+library(ggeffects) # getting model predictions
 
 sst <- read_csv(here("data", "SST_update2023.csv")) #read in Santa Barbara SST data in data folder
 
@@ -175,6 +176,66 @@ The best model that predicts box occupancy as determined by Akaike’s Informati
 
 ## h. 
 
+```{r}
+model1_predictions <- ggpredict(
+  model1,
+  terms = c("season", "edge_distance") #predictors
+) |> 
+  rename(season = x,
+         edge_distance = group)
 
+#| fig-width: 12
+#| fig-height: 4
+
+# base layer: ggplot
+ggplot(data = bird_data_clean, # using the bird_data_clean object
+       aes(x = water_treatment,
+           y = e,
+           color = water_treatment)) +
+  # first layer: jitter showing individual observations
+  geom_jitter(width = 0.1,
+              height = 0,
+              shape = 21,
+              alpha = 0.6) +
+  # second layer: point range showing model predictions
+  # note that this is appropriate because there are only categorical predictors
+  # in the final model
+  geom_pointrange(data = model4_predictions,
+                  aes(y = predicted,
+                      ymin = conf.low,
+                      ymax = conf.high)) +
+  # manually setting colors
+  scale_color_manual(values = c("Well watered" = ww_col,
+                                "Drought stressed" = ds_col)) +
+  # wrapping x-axis labels
+  scale_x_discrete(labels = label_wrap(10)) +
+  # creating different panels for each species
+  facet_wrap(~species_name, nrow = 1) +
+  # labelling x- and y-axis
+  labs(x = "Water treatment",
+       y = "Total mass (g)") +
+  # taking out the legend
+  theme(legend.position = "none")
+```
 
 ## i. 
+
+
+# Problem 4. 
+
+## a. 
+
+- How are the visualizations different from each other in the way you have represented your data?
+
+The visualizations are very different from each other in the way that I have represented my data. My visualizations from homework 2 were a box and jitter plot and a line graph, while my visualization from homework 3 was an artistic visualization, with the data represented by drawings of brain waves and colors. The visualizations in homework 2 displayed the data in a very scientific way without evoking much emotion, while the visualization in homework 3 shows the data in a creative and unique way. Also, in homework 2, I used sleep quality and if I went on my phone before bed as predictors of hours slept, while in homework 3 I used class day as a predictor of hours slept.
+
+- What similarities do you see between all your visualizations?
+
+Between all of my visualizations, the number of hours slept is the response variable, meaning that all of my visualizations are visualizing how various predictors predict hours slept. They each communicate patterns in my sleep behavior. Both the box-and-jitter plot and the affective visualization use color to communicate differences in the categorical variables of class day and phone usage. These two visualizations also are similar in their use of a categorical predictor variable. The box-and-jitter plot and the line graph are similar in their formal portrayal of the data.
+
+- What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
+
+
+
+- What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
+
