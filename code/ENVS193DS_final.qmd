@@ -176,10 +176,10 @@ AICc( #using Akaike’s Information Criterion (AIC) function
    arrange(AICc) #arranging output in descending order of AIC
 ```
 ```{r model-summary}
-summary(model1)
+summary(model1) #summarize model 1
 ```
 
-The best model that predicts box occupancy as determined by Akaike’s Information Criterion (AIC) includes season and edge distance.
+The best model that predicts box occupancy as determined by Akaike’s Information Criterion (AIC) includes season and edge distance (AICc = 226.3, df = 3). 
 
 ## h. 
 
@@ -205,7 +205,8 @@ ggplot(bird_data_clean, #use bird_data_clean dataframe
                   ymin = conf.low, #lower confidence level
                   ymax = conf.high, #upper confidence level
                   fill = season), #
-              alpha = 0.4) + #change transparency of ribbons
+              alpha = 0.4, #change transparency of ribbons
+              color = NA) + #remove ribbon border
   geom_line(data = model1_predictions, #use model1_predictions dataframe
             aes(x = edge_distance, #x-axis is edge_distance
                 y = predicted, #y-axis is predicted probability
@@ -222,7 +223,7 @@ ggplot(bird_data_clean, #use bird_data_clean dataframe
 
 ## i. 
 
-Figure 1. 
+Figure 1. The probability of Swift Parrot box occupancy decreases as distance from forest edge increases. Points represent observations of box occupancy at distances from the forest edge (m) in 2016 (n = 104) and 2019 (n = 123). Lines represent the probability of Swift Parrot box occupancy at a given distance from the forest edge for each season. The shaded regions indicate the 95% confidence intervals. Colors represent the season (purple: 2016, green: 2019). Source: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb.
 
 ## j.
 
