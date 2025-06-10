@@ -17,6 +17,7 @@ library(here) # file organization
 library(janitor) # cleaning data frames
 library(MuMIn) # model selection
 library(ggeffects) # getting model predictions
+library(DHARMa) #simulate residuals
 
 sst <- read_csv(here("data", "SST_update2023.csv")) #read in Santa Barbara SST data in data folder
 
@@ -99,7 +100,7 @@ ggplot(data = sst_clean, #use the sst_clean dataframe
 
 ## a. 
 
-In this data set, 0s mean there is nest occupancy and 1s mean there is no nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a bird or not.
+In this data set, 1s mean there is Swift Parrot nest occupancy and 0s mean there is Swift Parrot no nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a Swift Parrot or not.
 
 ## b. 
 
@@ -122,40 +123,46 @@ Swift Parrots are very selective about where they nest, whereas Tree Martins and
 
 ```{r}
 bird_data_clean <- bird_data |> #create new bird_data_clean dataframe using bird_data dataframe
-  clean_names() #clean the column names
+  clean_names() |> #clean the column names
+  mutate(season = as_factor(season)) #make sure season is a factor
 
 # model 0: null model
-model0 <- lm( #create model object using linear model function
-  e ~ 1, # formula for null model
-  data = bird_data_clean # using bird_data_clean data frame
+model0 <- glm( #create model object using linear model function
+  sp ~ 1, # formula for null model
+  data = bird_data_clean, # using bird_data_clean data frame
+  family = "binomial" #sp is binomial distribution
 )
 
 # model 1: all predictors
-model1 <- lm( #create model object using linear model function
-  e ~ season + edge_distance, #e is response and season + edge distance are predictors
-  data = bird_data_clean # using bird_data_clean data frame
+model1 <- glm( #create model object using linear model function
+  sp ~ season + edge_distance, #sp is response and season + edge distance are predictors
+  data = bird_data_clean, # using bird_data_clean data frame
+  family = "binomial" #sp is binomial distribution
 )
 
 # model 2: season
-model2 <- lm( #create model object using linear model function
-  e ~ season, #e is response and season is predictor
-  data = bird_data_clean # using bird_data_clean data frame
+model2 <- glm( #create model object using linear model function
+  sp ~ season, #sp is response and season is predictor
+  data = bird_data_clean, # using bird_data_clean data frame
+  family = "binomial" #sp is binomial distribution
 )
 
 # model 3: edge distance
-model3 <- lm( #create model object using linear model function
-  e ~ edge_distance, #e is response and edge distance is predictor
-  data = bird_data_clean # using bird_data_clean data frame
+model3 <- glm( #create model object using linear model function
+  sp ~ edge_distance, #sp is response and edge distance is predictor
+  data = bird_data_clean, # using bird_data_clean data frame
+  family = "binomial" #sp is binomial distribution
 )
 ```
 
 ## f. 
 
 ```{r model-diagnostics}
-par(mfrow = c(2,2))
-plot(model1)
-plot(model2)
-plot(model3)
+par(mfrow = c(2,2)) #display output in 2 by 2 format
+plot(simulateResiduals(model0)) #model 0 diagnostics
+plot(simulateResiduals(model1)) #model 1 diagnostics
+plot(simulateResiduals(model2)) #model 2 diagnostics
+plot(simulateResiduals(model3)) #model 3 diagnostics
 ```
 
 ## g. 
@@ -172,48 +179,78 @@ AICc( #using Akaike’s Information Criterion (AIC) function
 summary(model1)
 ```
 
-The best model that predicts box occupancy as determined by Akaike’s Information Criterion (AIC) includes season and edge distance (F(2, 224) = 12.17, p < 0.001, $\alpha$ = 0.05).
+The best model that predicts box occupancy as determined by Akaike’s Information Criterion (AIC) includes season and edge distance.
 
 ## h. 
 
 ```{r}
 model1_predictions <- ggpredict(model1, # model object
   terms = c("edge_distance", "season")) |> # listing predictors edge distance and season
-  rename(
-    edge_distance = x,
-    season = group
+  rename( 
+    edge_distance = x, #rename column x to edge distance
+    season = group # rename column group to season
   )
 ```
 
 ```{r}
-ggplot(bird_data_clean,
-       aes(x = edge_distance,
-           y = e,
-           color = season)) +
-  geom_point(size = 3,
-             alpha = 0.4) +
-  geom_ribbon(data = model1_predictions,
-              aes(x = edge_distance,
-                  y = predicted,
-                  ymin = conf.low,
-                  ymax = conf.high,
-                  fill = season),
-              alpha = 0.4) +
-  geom_line(data = model1_predictions,
-            aes(x = edge_distance,
-                y = predicted,
-                color = season)) +
-  scale_color_manual(values = c("2016" = "plum2", "2019" = "lightgreen")) + 
-  scale_fill_manual(values = c("2016" = "plum2", "2019" = "lightgreen")) +
+ggplot(bird_data_clean, #use bird_data_clean dataframe
+       aes(x = edge_distance, #set x-axis to edge_distance
+           y = sp, #set y-axis to sp 
+           color = season)) + #color by season
+  geom_point(size = 2, #change size of points
+             alpha = 0.4) + #transparency of points
+  geom_ribbon(data = model1_predictions, #use model1_predictions dataframe
+              aes(x = edge_distance, #x-axis is edge_distance
+                  y = predicted, #y-axis is predicted probability
+                  ymin = conf.low, #lower confidence level
+                  ymax = conf.high, #upper confidence level
+                  fill = season), #
+              alpha = 0.4) + #change transparency of ribbons
+  geom_line(data = model1_predictions, #use model1_predictions dataframe
+            aes(x = edge_distance, #x-axis is edge_distance
+                y = predicted, #y-axis is predicted probability
+                color = season)) + #color by season
+  scale_color_manual(values = c("2016" = "plum2", "2019" = "lightgreen")) + #change color of 2016 and 2019 seasons for lines and points
+  scale_fill_manual(values = c("2016" = "plum2", "2019" = "lightgreen")) + #change color of 2016 and 2019 seasons for ribbon
   labs(
-    x = "Distance from the forest edge (m)",
-    y = "Probability of box occupancy",
+    x = "Distance from the forest edge (m)", #change x-axis label
+    y = "Probability of box occupancy", #change y-axis label
   ) + 
   theme(panel.grid = element_blank()) #remove the gridlines 
  
 ```
 
 ## i. 
+
+Figure 1. 
+
+## j.
+
+```{r}
+ggpredict( #using ggpredict function
+  model1, #use model 1 to predict
+  terms = c("edge_distance [0]", "season [2016]") #formula = predictor [value], 0 m from forest edge in 2016 season
+)
+
+ggpredict( #using ggpredict function
+  model1, #use model 1 to predict
+  terms = c("edge_distance [900]", "season [2016]") #formula = predictor [value], 900 m from forest edge in 2016 season
+)
+
+ggpredict( #using ggpredict function
+  model1, #use model 1 to predict
+  terms = c("edge_distance [0]", "season [2019]") #formula = predictor [value], 0 m from forest edge in 2019 season
+)
+
+ggpredict( #using ggpredict function
+  model1, #use model 1 to predict
+  terms = c("edge_distance [900]", "season [2019]") #formula = predictor [value], 900 m from forest edge in 2019 season 
+)
+```
+
+
+## k. 
+
 
 
 # Problem 4. 
