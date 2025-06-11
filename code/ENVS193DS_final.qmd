@@ -223,7 +223,7 @@ ggplot(bird_data_clean, #use bird_data_clean dataframe
 
 ## i. 
 
-Figure 1. The probability of Swift Parrot box occupancy decreases as distance from forest edge increases. Points represent observations of box occupancy at distances from the forest edge (m) in 2016 (n = 104) and 2019 (n = 123). Lines represent the probability of Swift Parrot box occupancy at a given distance from the forest edge for each season. The shaded regions indicate the 95% confidence intervals. Colors represent the season (purple: 2016, green: 2019). Source: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb.
+Figure 1. The probability of Swift Parrot box occupancy decreases as distance from forest edge increases. Points represent observations of box occupancy at distances from the forest edge (m) in 2016 (n = 104) and 2019 (n = 123). Lines represent the predicted probability of Swift Parrot box occupancy at a given distance from the forest edge for each season. The shaded regions indicate the 95% confidence intervals. Colors represent the season (purple: 2016, green: 2019). Source: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb.
 
 ## j.
 
@@ -252,7 +252,7 @@ ggpredict( #using ggpredict function
 
 ## k. 
 
-
+Swift Parrots tend to occupy their nest boxes more often when the nest box is closer to the forest edge (Figure 1). During the newly established season, if the nest box is at the forest edge (0 m), the predicted probability of occupancy is 0.48 (95% CI [0.33, 0.64]), and if the nest box is farther away from the forest edge (900 m), the predicted probability of occupancy is 0.12 (95% CI [0.06, 0.24]). During the established season, if the nest box is at the forest edge (0 m), the predicted probability of occupancy is 0.30 (95% CI [0.18, 0.44]), and if the nest box is farther away from the forest edge (900 m), the predicted probability of occupancy is 0.06 (95% CI [0.03, 0.13]). The probability of box occupancy decreases as the distance from the forest edge (m) increases. Tree martins have the opposite relationship between edge distance and nest occupancy. and given that they occupied the most number of boxes in the study, this explains the inverse relationship between edge distance and nest occupancy for Swift Parrots.
 
 # Problem 4. 
 
