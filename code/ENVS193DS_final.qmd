@@ -268,7 +268,8 @@ Between all of my visualizations, the number of hours slept is the response vari
 
 - What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
 
-
+In my visualizations from homework 2, my mean hours slept is higher on nights that I don't go on my phone before bed, and as my sleep quality increases, my number of hours slept also increases. In my visualization from homework 3, there seems to be a trend where I sleep more hours on nights that I don't have class. These are all different patterns between my visualizations since each visualization has a different predictor. 
 
 - What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
 
+My feedback included filling in the blank space between the brain waves on my drawing, which I decided not to do because I wanted to keep the colors and space simple so that the data is easier to focus on. Another suggestion included adding units ("hours slept") to the numbers in my legend so that it is complete, which I did end up adding since this seemed essential to the understanding of my piece. It was also suggested to make half of the brain class days and the other half non-class days, but I decided not to do this since I had many more class days than non-class days, so one side of the paper would have a lot more blank space than the other. The last suggestion I got was to include the key on the same side of the page as the drawing, which I decided against since this would make the drawing more cluttered. I liked the format of Giogia Lupi and Stefanie Posavec's Dear Data project where they had a key on a separate page.
