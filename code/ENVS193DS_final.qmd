@@ -54,7 +54,7 @@ sst_clean <- sst |> #create new sst_clean dataframe from sst dataframe
                       levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")), #set month as ordered factor with these levels
          year = factor(as.character(year(date)), #set year as factor and extract year from the date column
-                       levels = c("2018", "2019", "2020", "2021", "2022", "2023"))) |> 
+                       levels = c("2018", "2019", "2020", "2021", "2022", "2023"))) |> #set levels of year factor
   group_by(year, month) |> #group by months and year
   summarize(mean_monthly_sst = mean(temp)) |> #calculate the monthly mean sst 
   ungroup() #ungroup 
