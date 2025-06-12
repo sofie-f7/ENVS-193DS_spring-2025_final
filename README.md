@@ -7,8 +7,11 @@ This repository is for all work done for my final for ENV S 193DS.
 This is mine (sofie-f7), and I am the only contributer. 
 
 The data includes sea surface temperature in the Santa Barbara Channel data and Swift Parrot nest occupancy data.
+
 Sources:
+
 Kui, L. 2024. Daily sea surface temperature in Santa Barbara channel between 1982 and 2023 ver 3. Environmental Data Initiative. https://doi.org/10.6073/pasta/e930954949b2635928b8be6824630f84. Accessed 2025-06-09.
+
 Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb. Accessed 2025-06-10.
 
 ## Data and file information
