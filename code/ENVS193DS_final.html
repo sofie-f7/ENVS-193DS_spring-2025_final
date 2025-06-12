@@ -204,8 +204,8 @@ window.Quarto = {
 </section>
 <section id="c." class="level2">
 <h2 class="anchored" data-anchor-id="c.">c.&nbsp;</h2>
-<p>We rejected the null hypothesis that there is no correlation between distance from headwater (km) and annual total nitrogen load (kg year-1) (Pearson’s r = <strong>correlation coefficient</strong>, p = 0.03, <span class="math inline">\(\alpha\)</span> = <strong>significance level</strong>).</p>
-<p>We rejected the null hypothesis that there is no difference in average nitrogen load (kg year-1) between sources (n = sample sizes) (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F(<strong>among groups df, within groups df</strong>) = <strong>F-statistic</strong>, p = 0.02, <span class="math inline">\(\alpha\)</span> = <strong>significance level</strong>). We found a ___ effect (<span class="math inline">\(\eta^2\)</span> = <strong>effect size</strong>) of nitrogen source on nitrogen load. On average, <strong>source type</strong> tended to have smaller/larger nitrogen loads than <strong>source type</strong> (<strong>Tukey’s HSD</strong>).</p>
+<p>Our results suggest that there is a correlation between distance from headwater and annual total nitrogen load. We rejected the null hypothesis that there is no correlation between distance from headwater (km) and annual total nitrogen load (kg/year) (Pearson’s r = <strong>correlation coefficient</strong>, p = 0.03, <span class="math inline">\(\alpha\)</span> = <strong>significance level</strong>).</p>
+<p>Our results suggest that average nitrogen load differs between sources including urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands. We rejected the null hypothesis that there is no difference in average nitrogen load (kg year-1) between sources (n = sample sizes) (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F(<strong>among groups df, within groups df</strong>) = <strong>F-statistic</strong>, p = 0.02, <span class="math inline">\(\alpha\)</span> = <strong>significance level</strong>). We found a ___ effect (<span class="math inline">\(\eta^2\)</span> = <strong>effect size</strong>) of nitrogen source on nitrogen load. On average, <strong>source type</strong> tended to have smaller/larger nitrogen loads than <strong>source type</strong> (<strong>Tukey’s HSD</strong>).</p>
 </section>
 </section>
 <section id="problem-2." class="level1">
@@ -231,11 +231,11 @@ window.Quarto = {
 <pre><code># A tibble: 5 × 3
   year  month mean_monthly_sst
   &lt;fct&gt; &lt;ord&gt;            &lt;dbl&gt;
-1 2020  Oct               19.0
-2 2023  Apr               12.4
-3 2022  Jun               16.2
-4 2021  Oct               16.6
-5 2022  Feb               14.1</code></pre>
+1 2020  May               14.6
+2 2018  Jan               15.0
+3 2020  Jun               15.9
+4 2023  Mar               12.8
+5 2020  Aug               17.8</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -286,7 +286,7 @@ window.Quarto = {
 <h1>Problem 3.</h1>
 <section id="a.-2" class="level2">
 <h2 class="anchored" data-anchor-id="a.-2">a.</h2>
-<p>In this data set, 1s mean there is Swift Parrot nest occupancy and 0s mean there is Swift Parrot no nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a Swift Parrot or not.</p>
+<p>In this data set, 1s mean there is Swift Parrot nest occupancy and 0s mean there is no nest occupancy by a Swift Parrot. The 1s and 0s are a measure of if the nest is occupied by a Swift Parrot or not.</p>
 </section>
 <section id="b.-2" class="level2">
 <h2 class="anchored" data-anchor-id="b.-2">b.</h2>
@@ -494,7 +494,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distance from the forest edge (m)"</span>, <span class="co">#change x-axis label</span></span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Probability of box occupancy"</span>, <span class="co">#change y-axis label</span></span>
 <span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="co">#remove the gridlines </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(), <span class="co">#remove the gridlines</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_blank</span>()) <span class="co">#make the panel background blank</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

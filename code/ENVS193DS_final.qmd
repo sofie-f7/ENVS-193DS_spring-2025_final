@@ -39,9 +39,9 @@ Another test that should be included is Tukey's HSD. This would be useful becaus
 
 ## c. 
 
-We rejected the null hypothesis that there is no correlation between distance from headwater (km) and annual total nitrogen load (kg year-1) (Pearson's r = **correlation coefficient**, p = 0.03, $\alpha$ = **significance level**).
+Our results suggest that there is a correlation between distance from headwater and annual total nitrogen load. We rejected the null hypothesis that there is no correlation between distance from headwater (km) and annual total nitrogen load (kg/year) (Pearson's r = **correlation coefficient**, p = 0.03, $\alpha$ = **significance level**). 
 
-We rejected the null hypothesis that there is no difference in average nitrogen load (kg year-1) between sources (n = sample sizes) (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F(**among groups df, within groups df**) = **F-statistic**, p = 0.02, $\alpha$ = **significance level**). We found a ___ effect ($\eta^2$ = **effect size**) of nitrogen source on nitrogen load. On average, **source type** tended to have smaller/larger nitrogen loads than **source type** (**Tukey's HSD**).
+Our results suggest that average nitrogen load differs between sources including urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands. We rejected the null hypothesis that there is no difference in average nitrogen load (kg year-1) between sources (n = sample sizes) (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F(**among groups df, within groups df**) = **F-statistic**, p = 0.02, $\alpha$ = **significance level**). We found a ___ effect ($\eta^2$ = **effect size**) of nitrogen source on nitrogen load. On average, **source type** tended to have smaller/larger nitrogen loads than **source type** (**Tukey's HSD**).
 
 # Problem 2.
 
@@ -101,7 +101,7 @@ ggplot(data = sst_clean, #use the sst_clean dataframe
 
 ## a. 
 
-In this data set, 1s mean there is Swift Parrot nest occupancy and 0s mean there is Swift Parrot no nest occupancy. The 1s and 0s are a measure of if the nest is occupied by a Swift Parrot or not.
+In this data set, 1s mean there is Swift Parrot nest occupancy and 0s mean there is no nest occupancy by a Swift Parrot. The 1s and 0s are a measure of if the nest is occupied by a Swift Parrot or not.
 
 ## b. 
 
@@ -218,7 +218,8 @@ ggplot(bird_data_clean, #use bird_data_clean dataframe
     x = "Distance from the forest edge (m)", #change x-axis label
     y = "Probability of box occupancy", #change y-axis label
   ) + 
-  theme(panel.grid = element_blank()) #remove the gridlines 
+  theme(panel.grid = element_blank(), #remove the gridlines
+        panel.background = element_blank()) #make the panel background blank
  
 ```
 
