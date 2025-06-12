@@ -11,6 +11,7 @@ execute:
 ---
 [Repo link](https://github.com/sofie-f7/ENVS-193DS_spring-2025_final)
 
+# Packages and Data
 ```{r packages-and-data, message=FALSE}
 library(tidyverse) # general use
 library(here) # file organization
